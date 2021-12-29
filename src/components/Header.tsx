@@ -1,6 +1,6 @@
-import { Center, Flex, Icon, Input, Text } from "@chakra-ui/react";
+import { Avatar, Box, Flex, HStack, Icon, Input, Text } from "@chakra-ui/react";
 import { FC } from "react";
-import { RiSearchLine } from "react-icons/ri";
+import { RiNotificationLine, RiSearchLine, RiUserAddLine } from "react-icons/ri";
 
 export const Header: FC = () => {
     return (
@@ -52,6 +52,43 @@ export const Header: FC = () => {
                     _placeholder={{ color: "gray.400" }}
                 />
                 <Icon as={RiSearchLine} fontSize={"20"} />
+            </Flex>
+            <Flex
+                align={"center"}
+                ml={"auto"}
+                pr={"8"}
+                py={"1"}
+                color={"gray.50"}
+                borderRightWidth={1}
+                borderColor={"gray.700"}
+            >
+                <HStack spacing={"4"} mx={"8"}>
+                    <Icon as={RiNotificationLine} fontSize={20} />
+                    <Icon as={RiUserAddLine} fontSize={20} />
+                </HStack>
+                <Flex
+                    align={"center"}
+                >
+                    <Box
+                        mr={"4"}
+                        textAlign={"right"}
+                    >
+                        <Text>Nícolas Krüger</Text>
+                        <Text
+                            color={"gray.300"}
+                            fontSize={"sm"}
+                        >
+                            nicolas.nkruger@gmail.com
+                        </Text>
+                    </Box>
+
+                    <Avatar
+                        size={"md"}
+                        name="Nicolas Kruger"
+                        src="https://github.com/nicolaskruger.png"
+                    />
+
+                </Flex>
             </Flex>
         </Flex>
     )
