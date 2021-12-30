@@ -2,6 +2,7 @@ import { Box, Flex, SimpleGrid, Text, theme } from "@chakra-ui/react";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { Header } from "../components/Header";
+import { Layout } from "../components/Layot";
 import { Sidebar } from "../components/Sidebar";
 
 const Chart = dynamic(() => import("react-apexcharts"), {
@@ -62,52 +63,36 @@ const series = [
 
 
 const DashBoard: NextPage = () => {
+
+    const titles = ["Inscritos da semana", "Taxa de abertura"];
+
     return (
         <Flex direction={"column"} h="100vh">
-            <Header />
-            <Flex
-                w={"100%"}
-                my={"6"}
-                maxW={1480}
-                mx={"auto"}
-                px={"6"}
-            >
-                <Sidebar />
+            <Layout>
                 <SimpleGrid
                     flex={"1"}
                     gap={"4"}
                     minChildWidth={"320px"}
                 >
-                    <Box
-                        p="8"
-                        bg={"gray.800"}
-                        borderRadius={8}
-                        pb={"4"}
-                    >
-                        <Text
-                            fontSize={"lg"}
-                            mb={"4"}
+                    {titles.map((title, index) => (
+                        <Box
+                            key={index}
+                            p="8"
+                            bg={"gray.800"}
+                            borderRadius={8}
+                            pb={"4"}
                         >
-                            Inscritos da semana
-                        </Text>
-                        <Chart options={options} series={series} type="area" height={160} />
-                    </Box>
-                    <Box
-                        p="8"
-                        bg={"gray.800"}
-                        borderRadius={8}
-                        pb={"4"}
-                    >
-                        <Text
-                            fontSize={"lg"}
-                            mb={"4"}
-                        >
-                            Taxa de abertura
-                        </Text>
-                        <Chart options={options} series={series} type="area" height={160} />
-                    </Box>
+                            <Text
+                                fontSize={"lg"}
+                                mb={"4"}
+                            >
+                                {title}
+                            </Text>
+                            <Chart options={options} series={series} type="area" height={160} />
+                        </Box>
+                    ))}
                 </SimpleGrid>
-            </Flex>
+            </Layout>
         </Flex>
     )
 }

@@ -2,20 +2,13 @@ import { Box, Button, Divider, Flex, Heading, HStack, SimpleGrid, VStack } from 
 import { NextPage } from "next";
 import { Input } from "../../components/Form/Input";
 import { Header } from "../../components/Header";
+import { Layout } from "../../components/Layot";
 import { Sidebar } from "../../components/Sidebar";
 
 const CreateUser: NextPage = () => {
     return (
         <Box>
-            <Header />
-            <Flex
-                w={"100%"}
-                my={"6"}
-                maxW={1480}
-                mx={"auto"}
-                px={"6"}
-            >
-                <Sidebar />
+            <Layout>
 
                 <Box flex={"1"} borderRadius={8} bg={"gray.800"} p="8">
                     <Heading size={"lg"} fontWeight={"normal"}>Criar usuário</Heading>
@@ -44,7 +37,8 @@ const CreateUser: NextPage = () => {
                     </Flex>
 
                 </Box>
-            </Flex >
+            </Layout>
+
         </Box >
     )
 }

@@ -2,22 +2,14 @@ import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Text, Th,
 import { NextPage } from "next";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
+import { Layout } from "../../components/Layot";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 
 const UserList: NextPage = () => {
     return (
         <Box>
-            <Header />
-            <Flex
-                w={"100%"}
-                my={"6"}
-                maxW={1480}
-                mx={"auto"}
-                px={"6"}
-            >
-                <Sidebar />
-
+            <Layout>
                 <Box flex={"1"} borderRadius={8} bg={"gray.800"} p="8">
                     <Flex mb={"8"} justifyContent={"space-between"} align={"center"}>
                         <Heading size={"lg"} fontWeight={"normal"}>
@@ -87,7 +79,7 @@ const UserList: NextPage = () => {
                     </Table>
                     <Pagination />
                 </Box>
-            </Flex >
+            </Layout>
         </Box >
     )
 }
