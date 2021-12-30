@@ -12,19 +12,19 @@ export const SideBarNav: FC = () => {
         >
             <NavSection title="GERAL">
 
-                <NavLink icon={RiDashboardLine} >
+                <NavLink href="/dashboard" icon={RiDashboardLine} >
                     DashBoard
                 </NavLink>
-                <NavLink icon={RiContactsLine}>
+                <NavLink href="/users" icon={RiContactsLine}>
                     Usuarios
                 </NavLink>
             </NavSection>
 
             <NavSection title="AUTOMAÇÃO">
-                <NavLink icon={RiInputMethodLine}>
+                <NavLink href="/forms" icon={RiInputMethodLine}>
                     Formulario
                 </NavLink>
-                <NavLink icon={RiGitMergeLine}>
+                <NavLink href="/automation" icon={RiGitMergeLine}>
                     Automação
                 </NavLink>
             </NavSection>
