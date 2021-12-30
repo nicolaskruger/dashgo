@@ -1,12 +1,16 @@
-import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
-import { Header } from "../../components/Header";
 import { Layout } from "../../components/Layot";
 import { Pagination } from "../../components/Pagination";
-import { Sidebar } from "../../components/Sidebar";
 
 const UserList: NextPage = () => {
+
+    const isWideVersion = useBreakpointValue({
+        base: false,
+        lg: true,
+    })
+
     return (
         <Box>
             <Layout>
@@ -30,15 +34,21 @@ const UserList: NextPage = () => {
                     >
                         <Thead>
                             <Tr>
-                                <Th px="6" color={"green.300"} width={"8"}>
+                                <Th
+                                    px={["4", "4", "6"]}
+                                    color={"green.300"}
+                                    width={"8"}
+                                >
                                     <Checkbox colorScheme={"pink"} />
                                 </Th>
                                 <Th>
                                     Usuário
                                 </Th>
-                                <Th>
-                                    Data de cadastro
-                                </Th>
+                                {isWideVersion &&
+                                    <Th>
+                                        Data de cadastro
+                                    </Th>
+                                }
                                 <Th>
 
                                 </Th>
@@ -46,7 +56,11 @@ const UserList: NextPage = () => {
                         </Thead>
                         <Tbody>
                             <Tr>
-                                <Td px="6" color={"green.300"} width={"8"}>
+                                <Td
+                                    px={["4", "4", "6"]}
+                                    color={"green.300"}
+                                    width={"8"}
+                                >
                                     <Checkbox colorScheme={"pink"} />
                                 </Td>
                                 <Td>
@@ -59,20 +73,25 @@ const UserList: NextPage = () => {
                                         </Text>
                                     </Box>
                                 </Td>
+                                {
+                                    isWideVersion &&
+                                    <Td>
+                                        04 de Abril, 2021
+                                    </Td>
+                                }
                                 <Td>
-                                    04 de Abril, 2021
-                                </Td>
-                                <Td>
-                                    <Button
-                                        as="a"
-                                        size={"sm"}
-                                        fontSize={"sm"}
-                                        colorScheme={"purple"}
-                                        leftIcon={<Icon as={RiPencilLine}
-                                            fontSize={"16"} />}
-                                    >
-                                        Editar
-                                    </Button>
+                                    {isWideVersion &&
+                                        <Button
+                                            as="a"
+                                            size={"sm"}
+                                            fontSize={"sm"}
+                                            colorScheme={"purple"}
+                                            leftIcon={<Icon as={RiPencilLine}
+                                                fontSize={"16"} />}
+                                        >
+                                            Editar
+                                        </Button>
+                                    }
                                 </Td>
                             </Tr>
                         </Tbody>
