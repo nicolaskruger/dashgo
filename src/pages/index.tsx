@@ -4,16 +4,27 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Head from 'next/head'
 import Image from 'next/image'
 import { Input } from '../components/Form/Input'
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup";
 
 type SignInFormData = {
   email: string,
   password: string
 }
 
+const signInFormSchema = yup.object().shape({
+  email: yup.string().required("E-mail obrigatorio").email("E-mail invalido"),
+  password: yup.string().required("Senha obrigatoria")
+});
+
 const Home: NextPage = () => {
 
   const { register
-    , handleSubmit, formState } = useForm();
+    , handleSubmit, formState } = useForm({
+      resolver: yupResolver(signInFormSchema)
+    });
+
+  const { errors } = formState;
 
   const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
     await new Promise(resolve => setTimeout(resolve, 2000))
@@ -41,6 +52,7 @@ const Home: NextPage = () => {
             label='E-mail'
             info='email'
             type={"email"}
+            error={errors.email}
             {...register("email")}
           />
           <Input
@@ -48,6 +60,7 @@ const Home: NextPage = () => {
             info='password'
             type={"password"}
             {...register("password")}
+            error={errors.password}
           />
         </Stack>
         <Button
