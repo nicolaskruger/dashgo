@@ -1,8 +1,6 @@
 import { Button, Flex, FormControl, FormLabel, Stack } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { SubmitHandler, useForm } from "react-hook-form";
-import Head from 'next/head'
-import Image from 'next/image'
 import { Input } from '../components/Form/Input'
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup";
