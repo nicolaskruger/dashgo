@@ -17,7 +17,7 @@ type CreateUserFormData = {
 const createUserFormSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatorio"),
     email: yup.string().required("Email obrigatorio").email("Email invalido"),
-    password: yup.string().required("Senha obrigatoria"),
+    password: yup.string().length(6, "Precisa ter 6 ou mais caracters").required("Senha obrigatoria"),
     password_confirmation: yup.string().oneOf([yup.ref("password"), null],
         "Senhas são diferentes"
     )
