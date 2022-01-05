@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Flex, Heading, Icon, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Button, Checkbox, CircularProgress, Flex, Heading, Icon, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from "@chakra-ui/react";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ type User = {
 
 const UserList: NextPage = () => {
 
-    const { data, isLoading, error } = useQuery("users", async () => {
+    const { data, isLoading, isRefetching, error } = useQuery("users", async () => {
         const response = await fetch('http://localhost:3000/api/users');
         const data = await response.json();
 
@@ -52,6 +52,12 @@ const UserList: NextPage = () => {
                     <Flex mb={"8"} justifyContent={"space-between"} align={"center"}>
                         <Heading size={"lg"} fontWeight={"normal"}>
                             Usuarios
+                            {(!isLoading && isRefetching) &&
+                                <Spinner
+                                    size={"sm"}
+                                    color="gray.500"
+                                    ml={"4"}
+                                />}
                         </Heading>
                         <Link href={"/users/create"} passHref>
                             <Button
