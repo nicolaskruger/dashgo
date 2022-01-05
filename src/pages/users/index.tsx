@@ -8,6 +8,7 @@ import { Pagination } from "../../components/Pagination";
 import { dateFormat } from "../../services/dateFromat";
 import { useQuery } from "react-query";
 import { api } from "../../services/api";
+import { useUsers } from "../../services/hooks/useUsers";
 
 type User = {
     id: string,
@@ -18,22 +19,7 @@ type User = {
 
 const UserList: NextPage = () => {
 
-    const { data, isLoading, isRefetching, error } = useQuery("users", async () => {
-        const { data } = await api.get<{ users: User[] }>('users');
-
-        const users = (data.users as User[]).map(user => {
-            return {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                createdAt: dateFormat(user.createdAt),
-            }
-        })
-
-        return users
-    }, {
-        staleTime: 1000 * 5
-    })
+    const { data, isLoading, isRefetching, error } = useUsers()
 
     const users: User[] = data || []
 
@@ -137,7 +123,7 @@ const UserList: NextPage = () => {
                                                 {
                                                     isWideVersion &&
                                                     <Td>
-                                                        {dateFormat(user.createdAt)}
+                                                        {user.createdAt}
                                                     </Td>
                                                 }
                                                 <Td>
