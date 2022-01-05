@@ -144,7 +144,11 @@ const UserList: NextPage = () => {
                                         ))}
                                     </Tbody>
                                 </Table >
-                                <Pagination />
+                                <Pagination
+                                    totalCountOfRegister={200}
+                                    currentPage={3}
+                                    onPageChange={() => { }}
+                                />
                             </>
                         )
                     }

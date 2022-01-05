@@ -4,9 +4,14 @@ import { FC } from "react";
 type PaginationProsp = {
     isCurrent?: boolean,
     number: number,
+    onClick?: () => void
 }
 
-export const PaginationItem: FC<PaginationProsp> = ({ isCurrent = false, number }) => {
+export const PaginationItem: FC<PaginationProsp> = ({
+    isCurrent = false,
+    number,
+    onClick = () => { }
+}) => {
 
     if (isCurrent) {
         return (
@@ -20,6 +25,7 @@ export const PaginationItem: FC<PaginationProsp> = ({ isCurrent = false, number 
                     bgColor: "pink.500",
                     cursor: "default"
                 }}
+                onClick={onClick}
             >
                 {number}
             </Button>
