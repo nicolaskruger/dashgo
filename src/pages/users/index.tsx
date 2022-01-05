@@ -19,9 +19,11 @@ type User = {
 
 const UserList: NextPage = () => {
 
-    const { data, isLoading, isRefetching, error } = useUsers()
+    const [page, setPage] = useState(1);
 
-    const users: User[] = data || []
+    const { data, isLoading, isRefetching, error } = useUsers(page)
+
+    const users: User[] = data?.users || []
 
     const isWideVersion = useBreakpointValue({
         base: false,
@@ -145,9 +147,9 @@ const UserList: NextPage = () => {
                                     </Tbody>
                                 </Table >
                                 <Pagination
-                                    totalCountOfRegister={200}
-                                    currentPage={3}
-                                    onPageChange={() => { }}
+                                    totalCountOfRegister={data?.totalCount as number}
+                                    currentPage={page}
+                                    onPageChange={(numPage) => { setPage(numPage) }}
                                 />
                             </>
                         )

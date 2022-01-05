@@ -25,7 +25,6 @@ export const PaginationItem: FC<PaginationProsp> = ({
                     bgColor: "pink.500",
                     cursor: "default"
                 }}
-                onClick={onClick}
             >
                 {number}
             </Button>
@@ -41,6 +40,7 @@ export const PaginationItem: FC<PaginationProsp> = ({
             _hover={{
                 bg: 'gray.500'
             }}
+            onClick={onClick}
         >
             {number}
         </Button>
