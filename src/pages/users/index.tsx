@@ -9,6 +9,7 @@ import { dateFormat } from "../../services/dateFromat";
 import { useQuery } from "react-query";
 
 type User = {
+    id: string,
     name: string,
     email: string,
     createdAt: string;
@@ -19,10 +20,20 @@ const UserList: NextPage = () => {
     const { data, isLoading, error } = useQuery("users", async () => {
         const response = await fetch('http://localhost:3000/api/users');
         const data = await response.json();
-        return data
+
+        const users = (data.users as User[]).map(user => {
+            return {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                createdAt: dateFormat(user.createdAt),
+            }
+        })
+
+        return users
     })
 
-    const [users, setUsers] = useState<User[]>([])
+    const users: User[] = data || []
 
     const isWideVersion = useBreakpointValue({
         base: false,
