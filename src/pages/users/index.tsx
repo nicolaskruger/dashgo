@@ -7,6 +7,7 @@ import { Layout } from "../../components/Layot";
 import { Pagination } from "../../components/Pagination";
 import { dateFormat } from "../../services/dateFromat";
 import { useQuery } from "react-query";
+import { api } from "../../services/api";
 
 type User = {
     id: string,
@@ -18,8 +19,7 @@ type User = {
 const UserList: NextPage = () => {
 
     const { data, isLoading, isRefetching, error } = useQuery("users", async () => {
-        const response = await fetch('http://localhost:3000/api/users');
-        const data = await response.json();
+        const { data } = await api.get<{ users: User[] }>('users');
 
         const users = (data.users as User[]).map(user => {
             return {
