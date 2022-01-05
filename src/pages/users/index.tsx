@@ -31,6 +31,8 @@ const UserList: NextPage = () => {
         })
 
         return users
+    }, {
+        staleTime: 1000 * 5
     })
 
     const users: User[] = data || []
