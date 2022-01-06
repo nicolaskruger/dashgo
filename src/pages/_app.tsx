@@ -6,6 +6,7 @@ import { theme } from '../styles/theme'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { QueryClient, QueryClientProvider } from "react-query";
+import { queryClient } from '../services/queryClient'
 
 let isDevelopment = false;
 
@@ -14,7 +15,7 @@ if (process.env.NODE_ENV === "development") {
   isDevelopment = true;
 }
 
-const queryClient = new QueryClient();
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

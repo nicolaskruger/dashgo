@@ -33,6 +33,6 @@ const getUsers = async (page: number): Promise<{ users: User[], totalCount: numb
 
 export const useUsers = (page: number) => {
     return useQuery([`users`, page], async () => await getUsers(page), {
-        staleTime: 1000 * 5
+        staleTime: 1000 * 60 * 10
     })
 }

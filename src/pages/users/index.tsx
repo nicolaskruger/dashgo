@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, CircularProgress, Flex, Heading, Icon, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Link as LinkC, Button, Checkbox, CircularProgress, Flex, Heading, Icon, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from "@chakra-ui/react";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,6 +9,8 @@ import { dateFormat } from "../../services/dateFromat";
 import { useQuery } from "react-query";
 import { api } from "../../services/api";
 import { useUsers } from "../../services/hooks/useUsers";
+import { queryClient } from "../../services/queryClient";
+
 
 type User = {
     id: string,
@@ -32,6 +34,15 @@ const UserList: NextPage = () => {
 
     useEffect(() => {
     }, [])
+
+    const handelPrefetchUser = async (userId: number) => {
+        await queryClient.prefetchQuery(['user', userId], async () => {
+            const response = await api.get<User>(`users/${userId}`)
+            return response.data
+        }, {
+            staleTime: 1000 * 60 * 10
+        })
+    }
 
     return (
         <Box>
@@ -114,9 +125,14 @@ const UserList: NextPage = () => {
                                                 </Td>
                                                 <Td>
                                                     <Box>
-                                                        <Text fontWeight={"bold"}>
-                                                            {user.name}
-                                                        </Text>
+                                                        <LinkC
+                                                            color={"purple.400"}
+                                                            onMouseEnter={() => { handelPrefetchUser(user.id) }}
+                                                        >
+                                                            <Text fontWeight={"bold"}>
+                                                                {user.name}
+                                                            </Text>
+                                                        </LinkC>
                                                         <Text fontSize={"sm"} color={"gray.300"}>
                                                             {user.email}
                                                         </Text>
