@@ -1,5 +1,5 @@
 import { Box, Link as LinkC, Button, Checkbox, CircularProgress, Flex, Heading, Icon, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from "@chakra-ui/react";
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
@@ -8,7 +8,7 @@ import { Pagination } from "../../components/Pagination";
 import { dateFormat } from "../../services/dateFromat";
 import { useQuery } from "react-query";
 import { api } from "../../services/api";
-import { useUsers } from "../../services/hooks/useUsers";
+import { getUsers, useUsers } from "../../services/hooks/useUsers";
 import { queryClient } from "../../services/queryClient";
 
 
@@ -18,12 +18,16 @@ type User = {
     email: string,
     createdAt: string;
 }
+type Result = {
+    users: User[]
+    totalCount: number
+}
 
-const UserList: NextPage = () => {
+const UserList: NextPage<Result> = ({ children, ...props }) => {
 
     const [page, setPage] = useState(1);
 
-    const { data, isLoading, isRefetching, error } = useUsers(page)
+    const { data, isLoading, isRefetching, error } = useUsers(page,)
 
     const users: User[] = data?.users || []
 
@@ -174,6 +178,27 @@ const UserList: NextPage = () => {
             </Layout >
         </Box >
     )
+}
+
+export const getServerSideProps: GetServerSideProps<Result> = async ({ }) => {
+
+    let users: Result = {
+        totalCount: 0,
+        users: []
+    };
+
+    try {
+        users = await getUsers(1);
+    } catch (error) {
+        console.log(error);
+    }
+
+
+    return {
+        props: {
+            ...users
+        }
+    }
 }
 
 export default UserList

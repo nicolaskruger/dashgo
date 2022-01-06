@@ -1,5 +1,5 @@
 
-import { useQuery } from "react-query";
+import { useQuery, UseQueryOptions } from "react-query";
 import { api } from "../api";
 import { dateFormat } from "../dateFromat";
 
@@ -17,7 +17,9 @@ type UserObj = {
     createdAt: string;
 }
 
-const getUsers = async (page: number): Promise<{ users: UserObj[], totalCount: number }> => {
+type GetUserResult = { users: UserObj[], totalCount: number }
+
+export const getUsers = async (page: number): Promise<GetUserResult> => {
     const { data, headers } = await api.get<{ users: User[] }>(`users`, {
         params: {
             page,
@@ -40,8 +42,9 @@ const getUsers = async (page: number): Promise<{ users: UserObj[], totalCount: n
     return { users, totalCount }
 }
 
-export const useUsers = (page: number) => {
+export const useUsers = (page: number, options?: Omit<UseQueryOptions<GetUserResult, GetUserResult, GetUserResult, (string | number)[]>, "queryKey" | "queryFn">) => {
     return useQuery([`users`, page], async () => await getUsers(page), {
-        staleTime: 1000 * 60 * 10
+        staleTime: 1000 * 60 * 10,
+        ...options
     })
 }
