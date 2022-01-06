@@ -35,7 +35,7 @@ const UserList: NextPage = () => {
     useEffect(() => {
     }, [])
 
-    const handelPrefetchUser = async (userId: number) => {
+    const handelPrefetchUser = async (userId: string) => {
         await queryClient.prefetchQuery(['user', userId], async () => {
             const response = await api.get<User>(`users/${userId}`)
             return response.data

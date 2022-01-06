@@ -7,10 +7,17 @@ type User = {
     id: string,
     name: string,
     email: string,
+    created_at: string;
+}
+
+type UserObj = {
+    id: string,
+    name: string,
+    email: string,
     createdAt: string;
 }
 
-const getUsers = async (page: number): Promise<{ users: User[], totalCount: number }> => {
+const getUsers = async (page: number): Promise<{ users: UserObj[], totalCount: number }> => {
     const { data, headers } = await api.get<{ users: User[] }>(`users`, {
         params: {
             page,
@@ -19,12 +26,14 @@ const getUsers = async (page: number): Promise<{ users: User[], totalCount: numb
 
     const totalCount = Number(headers["x-total-count"])
 
+    console.log(data)
+
     const users = (data.users as User[]).map(user => {
         return {
             id: user.id,
             name: user.name,
             email: user.email,
-            createdAt: dateFormat(user.createdAt),
+            createdAt: dateFormat(user.created_at),
         }
     })
 
